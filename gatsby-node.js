@@ -14,14 +14,12 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
 
   if (node.internal.type === 'Mdx') {
+    const sourceDir = getNode(node.parent).sourceInstanceName
+    const filePath = createFilePath({ node, getNode })
     createNodeField({
       name: 'slug',
       node,
-      value: `/${
-        node.frontmatter && node.frontmatter.slug
-          ? node.frontmatter.slug
-          : createFilePath({ node, getNode })
-        }`
+      value: sourceDir + filePath
     })
   }
 }
