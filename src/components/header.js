@@ -1,42 +1,69 @@
-import { Link } from "gatsby"
-import PropTypes from "prop-types"
-import React from "react"
+import React from 'react';
+import { Link } from 'gatsby';
+import styles from '../styles/header.module.css'
+import SvgLogo from './SvgLogo';
+import { useStaticQuery } from 'gatsby';
 
-const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      background: `rebeccapurple`,
-      marginBottom: `1.45rem`,
-    }}
-  >
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-      }}
-    >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
-    </div>
-  </header>
+const Logo = ({ ...props }) => (
+  <div {...props}>
+    <Link to="/">
+      <SvgLogo />
+    </Link>
+  </div>
 )
 
-Header.propTypes = {
-  siteTitle: PropTypes.string,
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/blog", label: "Blog" },
+  { href: "/faq", label: "FAQ's" },
+  { href: "/contact", label: "Contact" },
+];
+
+const Nav = ({ ...props }) => {
+  return (
+    <nav {...props}>
+      {links.map(({ href, label }) => (
+        <Link key={href} to={href}>{label}</Link>
+      ))}
+    </nav>
+  )
 }
 
-Header.defaultProps = {
-  siteTitle: ``,
+const Header = () => {
+  const { site } = useStaticQuery(
+    graphql`
+      query {
+        site {
+          siteMetadata {
+            title
+            description
+            author
+          }
+        }
+      }
+    `
+  )
+
+  return (
+    <header className={styles.header}>
+      <div>
+          <Logo className={styles.logo} />
+          <h1>{site.siteMetadata.title}</h1>
+      </div>
+      <Nav className={styles.smNav} />
+      <div>
+        <input type="checkbox" name="xMenu" id="xMenu" className={styles.checkbox} />
+        <label htmlFor="xMenu">
+          <svg viewBox="0 0 20 20" className={styles.xMenuSvg}>
+            <path d="M3,6 L17,6" />
+            <path d="M3,10 L17,10" />
+            <path d="M3,14 L17,14" />
+          </svg>
+        </label>
+        <Nav className={styles.xsNav} />
+      </div>
+    </header>
+  );
 }
 
-export default Header
+export default Header;

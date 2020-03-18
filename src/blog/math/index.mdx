@@ -1,0 +1,18 @@
+---
+title: Function plotting with React, D3.js, vx
+---
+
+import Plane2DD3 from './Plane2DD3'
+import Plane2DVX from './Plane2DVX'
+
+Here are two versions of the same function plotting
+component
+
+## With D3.js and a ref
+
+
+<Plane2DD3 f={x => Math.pow(1.2, (x * -2))} />
+
+## With vx
+
+<Plane2DVX f={x => Math.pow(2, x)} />

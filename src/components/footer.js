@@ -1,0 +1,11 @@
+import { Link } from "gatsby"
+import React from "react"
+import styles from '../styles/footer.module.css'
+
+const Footer = () => (
+  <footer className={styles.footer}>
+
+  </footer>
+)
+
+export default Footer
