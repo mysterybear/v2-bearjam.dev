@@ -21,16 +21,6 @@ const links = [
 
 const Link = motion.custom(GatsbyLink)
 
-const Nav = ({ ...props }) => {
-  return (
-    <motion.nav {...props}>
-      {links.map(({ href, label }) => (
-        <Link key={href} to={href}>{label}</Link>
-      ))}
-    </motion.nav>
-  )
-}
-
 const Header = () => {
   const { site } = useStaticQuery(
     graphql`
