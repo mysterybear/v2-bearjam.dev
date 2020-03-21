@@ -16,7 +16,7 @@
 }
 
 .logo {
-  @apply w-12;
+  @apply w-12 p-1;
 }
 
 .logo circle {
@@ -42,4 +42,8 @@
 
 .navMobileDiv>nav>a {
   @apply pointer-events-auto mt-4;
+}
+
+.navDesktop>a {
+  @apply mr-4
 }

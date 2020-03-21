@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
   siteMetadata: {
     title: `Bearjam`,
@@ -7,10 +9,17 @@ module.exports = {
   plugins: [
     `gatsby-plugin-postcss`,
     {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: `blog`,
+        path: `${__dirname}/src/blog/`,
+      },
+    },
+    {
       resolve: `gatsby-plugin-mdx`,
       options: {
         defaultLayouts: {
-          default: `${__dirname}/src/components/layout.js`
+          default: require.resolve('./src/components/layout.js'),
         },
         gatsbyRemarkPlugins: [
           {
@@ -43,14 +52,6 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
-    {
-      resolve: "gatsby-source-filesystem",
-      options: {
-        name: `blog`,
-        path: `${__dirname}/src/blog/`,
-      },
-    },
-
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
   ],

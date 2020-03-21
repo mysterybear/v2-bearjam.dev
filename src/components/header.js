@@ -1,16 +1,11 @@
-import React from 'react';
-import { Link as GatsbyLink } from 'gatsby';
-import styles from '../styles/header.module.css'
+import { AnimatePresence, motion } from 'framer-motion';
+import { graphql, Link as GatsbyLink, useStaticQuery } from 'gatsby';
+import React, { useState } from 'react';
+import { theme } from '../../tailwind.full.config';
+import useMedia from '../hooks/useMedia';
+import styles from '../styles/header.module.css';
 import SvgLogo from './SvgLogo';
-import { useStaticQuery } from 'gatsby';
 import SvgMenu from './SvgMenu';
-import { motion, useCycle } from 'framer-motion';
-import { useAnimation } from 'framer-motion';
-import { useState } from 'react';
-import { theme } from '../../tailwind.full.config'
-import { useEffect } from 'react';
-import useMedia from '../hooks/useMedia'
-import { AnimatePresence } from 'framer-motion';
 
 const links = [
   { href: "/", label: "Home" },
@@ -70,6 +65,7 @@ const Header = () => {
     <motion.header
       className={styles.header}
       animate={open ? ({ height: '100%' }) : ({ height: 'auto' })}
+      transition={{ type: 'spring', damping: 30, mass: 2, stiffness: 200 }}
     >
       <div>
         <Link to="/">
@@ -85,6 +81,7 @@ const Header = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              className={styles.navDesktop}
             >
               {links.map(({ href, label }) => (
                 <Link key={href} to={href}>{label}</Link>
@@ -122,7 +119,6 @@ const Header = () => {
                 </motion.div>
               </>
             )}
-
         </AnimatePresence>
       </div>
     </motion.header>
