@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'gatsby';
+import { Link as GatsbyLink } from 'gatsby';
 import styles from '../styles/header.module.css'
 import SvgLogo from './SvgLogo';
 import { useStaticQuery } from 'gatsby';
@@ -18,6 +18,8 @@ const links = [
   { href: "/faq", label: "FAQ's" },
   { href: "/contact", label: "Contact" },
 ];
+
+const Link = motion.custom(GatsbyLink)
 
 const Nav = ({ ...props }) => {
   return (
@@ -52,56 +54,32 @@ const Header = () => {
   ]
 
   const screen = useMedia(screenMqs, [4, 3, 2, 1], 0)
-  const [open, toggle] = useState(false)
+  const [open, setOpen] = useState(false)
+  const toggle = () => { setOpen(!open) }
 
   const variants = {
-    headerOpen: {
-      height: '100%'
+    navParent: {
+      open: {
+        transition: { staggerChildren: 0.1, delayChildren: 0.1 }
+      },
+      closed: {
+        transition: { staggerChildren: 0.1, delayChildren: 0.1 }
+      }
     },
-    headerClosed: {
-      height: '3rem'
-    },
-    smNavOpen: {
-      opacity: 1,
-      display: 'flex'
-    },
-    smNavClosed: {
-      opacity: 0,
-      display: 'none'
-    }
-  }
-
-  const headerControls = useAnimation()
-  const navDesktopControls = useAnimation()
-  const navMobileControls = useAnimation()
-
-  const toggler = () => {
-    let isOpen = !open;
-    toggle(isOpen);
-
-    if (isOpen) {
-      headerControls.start({
-        height: '100%'
-      })
-      navDesktopControls.start({
-        display: 'flex',
+    navChildren: {
+      open: {
         opacity: 1
-      })
-    } else {
-      headerControls.start({
-        height: 'auto'
-      })
-      navDesktopControls.start({
-        display: 'none',
+      },
+      closed: {
         opacity: 0
-      })
+      }
     }
   }
 
   return (
     <motion.header
       className={styles.header}
-      animate={headerControls}
+      animate={open ? ({ height: '100%' }) : ({ height: 'auto' })}
     >
       <div>
         <Link to="/">
@@ -111,16 +89,18 @@ const Header = () => {
           </div>
         </Link>
         <AnimatePresence exitBeforeEnter>
-          {screen > 0 && (
-            <motion.div
+          {screen > 0 ? (
+            <motion.nav
               key="navDesktop"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <Nav className={styles.navDesktop} />
-            </motion.div>
-          ) || (
+              {links.map(({ href, label }) => (
+                <Link key={href} to={href}>{label}</Link>
+              ))}
+            </motion.nav>
+          ) : (
               <>
                 <motion.div
                   key="menu"
@@ -128,21 +108,31 @@ const Header = () => {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 >
-                  <SvgMenu className={screen < 1 ? styles.menu : "hidden"} open={open} onClick={toggler} />
+                  <SvgMenu className={screen < 1 ? styles.menu : "hidden"} open={open} onClick={toggle} />
                 </motion.div>
-                {open && (
-                  <motion.div
-                    key="navMobile"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className={styles.navMobile}
+                <motion.div
+                  key="navMobile"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className={open ? styles.navMobileDiv : 'hidden'}
+                >
+                  <motion.nav
+                    animate={open ? "open" : "closed"}
+                    variants={variants.navParent}
                   >
-                    <Nav />
-                  </motion.div>
-                )}
+                    {links.map(({ href, label }) => (
+                      <Link
+                        key={href}
+                        to={href}
+                        variants={variants.navChildren}
+                      >{label}</Link>
+                    ))}
+                  </motion.nav>
+                </motion.div>
               </>
             )}
+
         </AnimatePresence>
       </div>
     </motion.header>

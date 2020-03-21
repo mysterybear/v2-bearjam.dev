@@ -25,11 +25,17 @@
 }
 
 .menu {
-  @apply w-12;
+  @apply w-6 mr-2;
 }
 
-.navMobile {
+.navMobileDiv {
   @apply
-    absolute w-32 h-full inset-0
-    flex flex-col justify-center items-center;
+    absolute w-full h-full inset-0
+    pointer-events-none;
+}
+
+.navMobileDiv>nav {
+  @apply
+    w-full h-full
+    flex flex-col justify-center items-center
 }
