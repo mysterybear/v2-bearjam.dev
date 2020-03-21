@@ -3,14 +3,8 @@ import { Link } from 'gatsby';
 import styles from '../styles/header.module.css'
 import SvgLogo from './SvgLogo';
 import { useStaticQuery } from 'gatsby';
-
-const Logo = ({ ...props }) => (
-  <div {...props}>
-    <Link to="/">
-      <SvgLogo />
-    </Link>
-  </div>
-)
+import SvgMenu from './SvgMenu';
+import { motion, useCycle } from 'framer-motion';
 
 const links = [
   { href: "/", label: "Home" },
@@ -21,11 +15,11 @@ const links = [
 
 const Nav = ({ ...props }) => {
   return (
-    <nav {...props}>
+    <motion.nav {...props}>
       {links.map(({ href, label }) => (
         <Link key={href} to={href}>{label}</Link>
       ))}
-    </nav>
+    </motion.nav>
   )
 }
 
@@ -44,25 +38,50 @@ const Header = () => {
     `
   )
 
+  const [open, cycleOpen] = useCycle(false, true)
+
+  const variants = {
+    headerOpen: {
+      height: '100%'
+    },
+    headerClosed: {
+      height: '3rem'
+    },
+    smNavOpen: {
+      opacity: 1,
+      display: 'flex'
+    },
+    smNavClosed: {
+      opacity: 0,
+      display: 'none'
+    }
+  }
+
   return (
-    <header className={styles.header}>
+    <motion.header
+      className={styles.header}
+      variants={variants}
+      animate={open ? 'headerOpen' : 'headerClosed'}
+    >
       <div>
-          <Logo className={styles.logo} />
-          <h1>{site.siteMetadata.title}</h1>
+        <Link to="/">
+          <div className="flex items-center">
+            <SvgLogo className={styles.logo} />
+            <h1>{site.siteMetadata.title}</h1>
+          </div>
+        </Link>
+        <div>
+          <Nav
+            className={styles.smNav}
+            variants={variants}
+            animate={open ? 'smNavOpen' : 'smNavClosed' }
+          />
+        </div>
+        <div>
+          <SvgMenu className={styles.menu} open={open} onClick={cycleOpen} />
+        </div>
       </div>
-      <Nav className={styles.smNav} />
-      <div>
-        <input type="checkbox" name="xMenu" id="xMenu" className={styles.checkbox} />
-        <label htmlFor="xMenu">
-          <svg viewBox="0 0 20 20" className={styles.xMenuSvg}>
-            <path d="M3,6 L17,6" />
-            <path d="M3,10 L17,10" />
-            <path d="M3,14 L17,14" />
-          </svg>
-        </label>
-        <Nav className={styles.xsNav} />
-      </div>
-    </header>
+    </motion.header>
   );
 }
 
