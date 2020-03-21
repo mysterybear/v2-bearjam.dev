@@ -28,22 +28,8 @@
   @apply w-12;
 }
 
-.defaultNav {
+.navMobile {
   @apply
-    absolute bg-red-500 w-12 h-12;
-}
-
-.smNav {
-  @apply
-    flex justify-evenly
-    opacity-0;
-}
-
-.smNav>a {
-  @apply mx-2;
-}
-
-@screen sm {
-  .header {
-  }
+    absolute w-32 h-full inset-0
+    flex flex-col justify-center items-center;
 }

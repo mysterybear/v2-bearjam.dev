@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { theme } from '../../tailwind.full.config'
 import { useEffect } from 'react';
 import useMedia from '../hooks/useMedia'
+import { AnimatePresence } from 'framer-motion';
 
 const links = [
   { href: "/", label: "Home" },
@@ -71,7 +72,8 @@ const Header = () => {
   }
 
   const headerControls = useAnimation()
-  const smNavControls = useAnimation()
+  const navDesktopControls = useAnimation()
+  const navMobileControls = useAnimation()
 
   const toggler = () => {
     let isOpen = !open;
@@ -81,7 +83,7 @@ const Header = () => {
       headerControls.start({
         height: '100%'
       })
-      smNavControls.start({
+      navDesktopControls.start({
         display: 'flex',
         opacity: 1
       })
@@ -89,26 +91,12 @@ const Header = () => {
       headerControls.start({
         height: 'auto'
       })
-      smNavControls.start({
+      navDesktopControls.start({
         display: 'none',
         opacity: 0
       })
     }
   }
-
-  useEffect(() => {
-    if (screen > 0) {
-      smNavControls.start({
-        opacity: 1,
-        display: 'flex'
-      })
-    } else {
-      smNavControls.start({
-        opacity: 0,
-        display: 'none'
-      })
-    }
-  }, [screen])
 
   return (
     <motion.header
@@ -122,15 +110,40 @@ const Header = () => {
             <h1>{site.siteMetadata.title}</h1>
           </div>
         </Link>
-        <div>
-          <Nav
-            className={styles.smNav}
-            animate={smNavControls}
-          />
-        </div>
-        <div>
-          <SvgMenu className={screen < 1 ? styles.menu : "hidden"} open={open} onClick={toggler} />
-        </div>
+        <AnimatePresence exitBeforeEnter>
+          {screen > 0 && (
+            <motion.div
+              key="navDesktop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <Nav className={styles.navDesktop} />
+            </motion.div>
+          ) || (
+              <>
+                <motion.div
+                  key="menu"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <SvgMenu className={screen < 1 ? styles.menu : "hidden"} open={open} onClick={toggler} />
+                </motion.div>
+                {open && (
+                  <motion.div
+                    key="navMobile"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className={styles.navMobile}
+                  >
+                    <Nav />
+                  </motion.div>
+                )}
+              </>
+            )}
+        </AnimatePresence>
       </div>
     </motion.header>
   );
