@@ -5,6 +5,11 @@ import SvgLogo from './SvgLogo';
 import { useStaticQuery } from 'gatsby';
 import SvgMenu from './SvgMenu';
 import { motion, useCycle } from 'framer-motion';
+import { useAnimation } from 'framer-motion';
+import { useState } from 'react';
+import { theme } from '../../tailwind.full.config'
+import { useEffect } from 'react';
+import useMedia from '../hooks/useMedia'
 
 const links = [
   { href: "/", label: "Home" },
@@ -38,7 +43,15 @@ const Header = () => {
     `
   )
 
-  const [open, cycleOpen] = useCycle(false, true)
+  const screenMqs = [
+    `(min-width: ${theme.screens.xl})`,
+    `(min-width: ${theme.screens.lg})`,
+    `(min-width: ${theme.screens.md})`,
+    `(min-width: ${theme.screens.sm})`,
+  ]
+
+  const screen = useMedia(screenMqs, [4, 3, 2, 1], 0)
+  const [open, toggle] = useState(false)
 
   const variants = {
     headerOpen: {
@@ -57,11 +70,50 @@ const Header = () => {
     }
   }
 
+  const headerControls = useAnimation()
+  const smNavControls = useAnimation()
+
+  const toggler = () => {
+    let isOpen = !open;
+    toggle(isOpen);
+
+    if (isOpen) {
+      headerControls.start({
+        height: '100%'
+      })
+      smNavControls.start({
+        display: 'flex',
+        opacity: 1
+      })
+    } else {
+      headerControls.start({
+        height: 'auto'
+      })
+      smNavControls.start({
+        display: 'none',
+        opacity: 0
+      })
+    }
+  }
+
+  useEffect(() => {
+    if (screen > 0) {
+      smNavControls.start({
+        opacity: 1,
+        display: 'flex'
+      })
+    } else {
+      smNavControls.start({
+        opacity: 0,
+        display: 'none'
+      })
+    }
+  }, [screen])
+
   return (
     <motion.header
       className={styles.header}
-      variants={variants}
-      animate={open ? 'headerOpen' : 'headerClosed'}
+      animate={headerControls}
     >
       <div>
         <Link to="/">
@@ -73,12 +125,11 @@ const Header = () => {
         <div>
           <Nav
             className={styles.smNav}
-            variants={variants}
-            animate={open ? 'smNavOpen' : 'smNavClosed' }
+            animate={smNavControls}
           />
         </div>
         <div>
-          <SvgMenu className={styles.menu} open={open} onClick={cycleOpen} />
+          <SvgMenu className={screen < 1 ? styles.menu : "hidden"} open={open} onClick={toggler} />
         </div>
       </div>
     </motion.header>
