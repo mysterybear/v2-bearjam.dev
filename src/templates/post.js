@@ -3,20 +3,24 @@ import { graphql, Link } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import React from "react"
 import SEO from "../components/seo"
+import { motion } from "framer-motion"
 
 const shortcodes = { Link } // Provide common components here
 
 export default function PostTemplate({ data: { mdx } }) {
   return (
-    <>
-      <SEO title={mdx.frontmatter.title}/>
-      <div>
-        <h1>{mdx.frontmatter.title}</h1>
-        <MDXProvider components={shortcodes}>
-          <MDXRenderer>{mdx.body}</MDXRenderer>
-        </MDXProvider>
-      </div>
-    </>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 3 }}
+    >
+      <SEO title={mdx.frontmatter.title} />
+      <h1>{mdx.frontmatter.title}</h1>
+      <MDXProvider components={shortcodes}>
+        <MDXRenderer>{mdx.body}</MDXRenderer>
+      </MDXProvider>
+    </motion.div>
   )
 }
 export const pageQuery = graphql`

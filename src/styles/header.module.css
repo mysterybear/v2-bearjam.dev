@@ -3,6 +3,7 @@
     overflow-hidden
     bg-gray-300 shadow-lg
     fixed w-full;
+  z-index: 100;
 }
 
 .header>div {

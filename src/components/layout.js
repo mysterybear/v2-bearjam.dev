@@ -5,12 +5,13 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
+import { AnimatePresence } from 'framer-motion'
 import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
 import '../styles/global.css'
-import styles from '../styles/layout.module.css'
 import Footer from './footer'
 import Header from './header'
+import styles from '../styles/layout.module.css'
 
 
 const Layout = ({ children }) => {
@@ -27,7 +28,11 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header siteTitle={site.siteMetadata.title} />
-      <main className={styles.main}>{children}</main>
+      <main className={styles.main}>
+        <AnimatePresence exitBeforeEnter>
+          {children}
+        </AnimatePresence>
+      </main>
       <Footer />
     </>
   )
