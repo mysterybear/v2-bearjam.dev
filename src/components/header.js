@@ -6,6 +6,7 @@ import useMedia from '../hooks/useMedia';
 import styles from '../styles/header.module.css';
 import SvgLogo from './SvgLogo';
 import SvgMenu from './SvgMenu';
+import { forwardRef } from 'react';
 
 const links = [
   { href: "/", label: "Home" },
@@ -14,7 +15,6 @@ const links = [
   { href: "/contact", label: "Contact" },
 ];
 
-const Link = motion.custom(GatsbyLink)
 
 const Header = () => {
   const { site } = useStaticQuery(
@@ -41,6 +41,8 @@ const Header = () => {
   const screen = useMedia(screenMqs, [4, 3, 2, 1], 0)
   const [open, setOpen] = useState(false)
   const toggle = () => { setOpen(!open) }
+  const MyLink = forwardRef((props, ref) => <GatsbyLink innerRef={ref} onClick={() => { setOpen(false) }} {...props}/>)
+  const Link = motion.custom(MyLink)
 
   const variants = {
     navParent: {

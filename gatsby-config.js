@@ -9,6 +9,12 @@ module.exports = {
   plugins: [
     `gatsby-plugin-postcss`,
     {
+      resolve: `gatsby-plugin-layout`,
+      options: {
+        component: require.resolve(`./src/components/layout`),
+      },
+    },
+    {
       resolve: "gatsby-source-filesystem",
       options: {
         name: `blog`,
@@ -18,9 +24,9 @@ module.exports = {
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
-        defaultLayouts: {
-          default: require.resolve('./src/components/layout.js'),
-        },
+        // defaultLayouts: {
+        //   default: require.resolve('./src/components/layout.js'),
+        // },
         gatsbyRemarkPlugins: [
           {
             resolve: `gatsby-remark-vscode`,

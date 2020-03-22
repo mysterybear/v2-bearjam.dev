@@ -1,13 +1,12 @@
+import { graphql, Link } from "gatsby"
 import React from "react"
-import { Link, graphql } from "gatsby"
-import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 const BlogIndex = ({ data }) => {
   const { edges: posts } = data.allMdx
 
   return (
-    <Layout>
+    <>
       <SEO title="Blog" />
       <div>
         <h1>Awesome MDX Blog</h1>
@@ -23,7 +22,7 @@ const BlogIndex = ({ data }) => {
           ))}
         </ul>
       </div>
-    </Layout>
+    </>
   )
 }
 

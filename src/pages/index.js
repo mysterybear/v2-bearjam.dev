@@ -6,14 +6,14 @@ import Image from "../components/image"
 import SEO from "../components/seo"
 
 const IndexPage = () => (
-  <Layout>
+  <>
     <SEO title="Home" />
     <section>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt excepturi officia ut inventore, quaerat ea minus repellat quidem consequuntur quis id mollitia. Distinctio aliquam quos ipsa ducimus quidem explicabo saepe.</p>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt excepturi officia ut inventore, quaerat ea minus repellat quidem consequuntur quis id mollitia. Distinctio aliquam quos ipsa ducimus quidem explicabo saepe.</p>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt excepturi officia ut inventore, quaerat ea minus repellat quidem consequuntur quis id mollitia. Distinctio aliquam quos ipsa ducimus quidem explicabo saepe.</p>
     </section>
-  </Layout>
+  </>
 )
 
 export default IndexPage
