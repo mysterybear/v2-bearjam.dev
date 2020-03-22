@@ -4,23 +4,19 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 import React from "react"
 import SEO from "../components/seo"
 import { motion } from "framer-motion"
+import Presence from "../components/presence"
 
 const shortcodes = { Link } // Provide common components here
 
 export default function PostTemplate({ data: { mdx } }) {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 3 }}
-    >
+    <Presence>
       <SEO title={mdx.frontmatter.title} />
       <h1>{mdx.frontmatter.title}</h1>
       <MDXProvider components={shortcodes}>
         <MDXRenderer>{mdx.body}</MDXRenderer>
       </MDXProvider>
-    </motion.div>
+    </Presence>
   )
 }
 export const pageQuery = graphql`

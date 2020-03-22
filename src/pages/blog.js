@@ -1,18 +1,13 @@
 import { graphql, Link } from "gatsby"
 import React from "react"
+import Presence from "../components/presence"
 import SEO from "../components/seo"
-import { motion } from "framer-motion"
 
 const BlogIndex = ({ data }) => {
   const { edges: posts } = data.allMdx
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 3 }}
-    >
+    <Presence>
       <SEO title="Blog" />
       <h1>Awesome MDX Blog</h1>
 
@@ -26,7 +21,7 @@ const BlogIndex = ({ data }) => {
           </li>
         ))}
       </ul>
-    </motion.div>
+    </Presence>
   )
 }
 
