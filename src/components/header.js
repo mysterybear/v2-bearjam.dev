@@ -1,12 +1,12 @@
-import { AnimatePresence, motion } from 'framer-motion';
-import { graphql, Link as GatsbyLink, useStaticQuery } from 'gatsby';
+import { motion } from 'framer-motion';
+import { graphql, useStaticQuery } from 'gatsby';
 import React, { useState } from 'react';
 import { theme } from '../../tailwind.full.config';
 import useMedia from '../hooks/useMedia';
 import styles from '../styles/header.module.css';
+import Link from './link';
 import SvgLogo from './SvgLogo';
 import SvgMenu from './SvgMenu';
-import { forwardRef } from 'react';
 
 const links = [
   { href: "/", label: "Home" },
@@ -14,10 +14,6 @@ const links = [
   { href: "/faq", label: "FAQ's" },
   { href: "/contact", label: "Contact" },
 ];
-
-const Link = motion.custom(forwardRef((props, ref) => (
-  <GatsbyLink innerRef={ref} {...props} />
-)))
 
 const Header = () => {
   const { site } = useStaticQuery(
@@ -104,7 +100,7 @@ const Header = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className={open ? styles.navMobileDiv : 'hidden'}
+                className={styles.navMobileDiv}
               >
                 <motion.nav
                   animate={open ? "open" : "closed"}

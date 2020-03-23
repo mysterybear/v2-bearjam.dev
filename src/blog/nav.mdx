@@ -2,4 +2,60 @@
 title: How to Nav
 ---
 
-Hi, this is about how to Nav
+Hi, this is about how to Nav in Gatsby with Framer Motion
+
+Fulfilling the following requirements:
+
+* Animated page transitions
+* Animated active link transitions
+* Animated menu icon
+* Bouncy/springy drop-down nav on mobile
+* Staggered children animation for links in drop-down nav on mobile
+* Fluidly animated responsive changes to varying screen sizes
+* Orchestrate/sequence animations on nav state change
+
+I am going to use Tailwind with PostCSS.
+
+`Gatsby CLI version: 2.11.0`
+
+[Just follow the docs to get Tailwind up and running with PostCSS](https://www.gatsbyjs.org/docs/tailwind-css/#option-1-postcss).
+
+Diff from [gatsby-starter-default](https://github.com/gatsbyjs/gatsby-starter-default)'s
+HEAD to with Tailwind with PostCSS:
+
+Update `react-helmet` to v6 and update to destructuring import
+
+My useMedia hook:
+
+```js
+import { useEffect, useState } from "react";
+import { theme } from './tailwind.full.config';
+
+const useMedia = (defaultValue, values, queries = [
+  `(min-width: ${theme.screens.xl})`,
+  `(min-width: ${theme.screens.lg})`,
+  `(min-width: ${theme.screens.md})`,
+  `(min-width: ${theme.screens.sm})`,
+]) => {
+
+  const [value, setValue] = useState(defaultValue)
+
+  useEffect(
+    () => {
+      const mqls = queries.map(q => window.matchMedia(q))
+      const handler = () => {
+        const index = mqls.findIndex(mql => mql.matches)
+        const next = values[index] ? values[index] : defaultValue
+        if (value !== next) setValue(next)
+      }
+      mqls.forEach(mql => mql.addListener(handler))
+      handler()
+      return () => mqls.forEach(mql => mql.removeListener(handler));
+    },
+  );
+
+  return value;
+}
+
+export default useMedia
+```
