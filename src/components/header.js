@@ -15,6 +15,9 @@ const links = [
   { href: "/contact", label: "Contact" },
 ];
 
+const Link = motion.custom(forwardRef((props, ref) => (
+  <GatsbyLink innerRef={ref} {...props} />
+)))
 
 const Header = () => {
   const { site } = useStaticQuery(
@@ -41,16 +44,14 @@ const Header = () => {
   const screen = useMedia(screenMqs, [4, 3, 2, 1], 0)
   const [open, setOpen] = useState(false)
   const toggle = () => { setOpen(!open) }
-  const MyLink = forwardRef((props, ref) => <GatsbyLink innerRef={ref} onClick={() => { setOpen(false) }} {...props}/>)
-  const Link = motion.custom(MyLink)
 
   const variants = {
     navParent: {
       open: {
-        transition: { staggerChildren: 0.5, delayChildren: 0.5 }
+        transition: { staggerChildren: 0.1, delayChildren: 0.2 }
       },
       closed: {
-        transition: { staggerChildren: 0.5, delayChildren: 0.5 }
+        // transition: { staggerChildren: 1, delayChildren: 1 }
       }
     },
     navChildren: {
@@ -76,50 +77,51 @@ const Header = () => {
             <h1>{site.siteMetadata.title}</h1>
           </div>
         </Link>
-          {screen > 0 ? (
-            <motion.nav
-              key="navDesktop"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className={styles.navDesktop}
-            >
-              {links.map(({ href, label }) => (
-                <Link key={href} to={href}>{label}</Link>
-              ))}
-            </motion.nav>
-          ) : (
-              <>
-                <motion.div
-                  key="menu"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
+        {screen > 0 ? (
+          <motion.nav
+            key="navDesktop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className={styles.navDesktop}
+          >
+            {links.map(({ href, label }) => (
+              <Link key={href} to={href}>{label}</Link>
+            ))}
+          </motion.nav>
+        ) : (
+            <>
+              <motion.div
+                key="menu"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <SvgMenu className={screen < 1 ? styles.menu : "hidden"} open={open} onClick={toggle} />
+              </motion.div>
+              <motion.div
+                key="navMobile"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className={open ? styles.navMobileDiv : 'hidden'}
+              >
+                <motion.nav
+                  animate={open ? "open" : "closed"}
+                  variants={variants.navParent}
                 >
-                  <SvgMenu className={screen < 1 ? styles.menu : "hidden"} open={open} onClick={toggle} />
-                </motion.div>
-                <motion.div
-                  key="navMobile"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className={open ? styles.navMobileDiv : 'hidden'}
-                >
-                  <motion.nav
-                    animate={open ? "open" : "closed"}
-                    variants={variants.navParent}
-                  >
-                    {links.map(({ href, label }) => (
-                      <Link
-                        key={href}
-                        to={href}
-                        variants={variants.navChildren}
-                      >{label}</Link>
-                    ))}
-                  </motion.nav>
-                </motion.div>
-              </>
-            )}
+                  {links.map(({ href, label }, i) => (
+                    <Link
+                      key={i}
+                      to={href}
+                      variants={variants.navChildren}
+                      onClick={() => { setOpen(false) }}
+                    >{label}</Link>
+                  ))}
+                </motion.nav>
+              </motion.div>
+            </>
+          )}
       </div>
     </motion.header>
   );
