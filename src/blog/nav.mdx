@@ -59,3 +59,26 @@ const useMedia = (defaultValue, values, queries = [
 
 export default useMedia
 ```
+
+HTML structure as follows:
+
+```html
+<header>
+  <a>
+    <div>
+      <!-- left side -->
+      <!-- site avatar + title here -->
+      <!-- ever present -->
+    </div>
+  </a>
+  <!-- right side -->
+  <!-- desktop nav + menu + mobile nav here -->
+  <!-- conditionally rendered with bitwise/ternary logic -->
+  <nav></nav>
+  <ToggleMenu />
+  <nav></nav>
+</header>
+```
+
+See here for storing last URL for dependent animation:
+https://www.wcj.io/blog/gatsby-link-with-previous-history
