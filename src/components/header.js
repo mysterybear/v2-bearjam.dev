@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { graphql, useStaticQuery } from 'gatsby';
 import React, { useState } from 'react';
-import { theme } from '../../tailwind.full.config';
 import useMedia from '../hooks/useMedia';
 import styles from '../styles/header.module.css';
 import Link from './link';
@@ -30,14 +29,7 @@ const Header = () => {
     `
   )
 
-  const screenMqs = [
-    `(min-width: ${theme.screens.xl})`,
-    `(min-width: ${theme.screens.lg})`,
-    `(min-width: ${theme.screens.md})`,
-    `(min-width: ${theme.screens.sm})`,
-  ]
-
-  const screen = useMedia(screenMqs, [4, 3, 2, 1], 0)
+  const screen = useMedia([4, 3, 2, 1], 0)
   const [open, setOpen] = useState(false)
   const toggle = () => { setOpen(!open) }
 
