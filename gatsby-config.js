@@ -24,9 +24,9 @@ module.exports = {
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
-        // defaultLayouts: {
-        //   default: require.resolve('./src/components/layout.js'),
-        // },
+        defaultLayouts: {
+          default: require.resolve('./src/components/MDXLayout.js'),
+        },
         gatsbyRemarkPlugins: [
           {
             resolve: `gatsby-remark-vscode`,
