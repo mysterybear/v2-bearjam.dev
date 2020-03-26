@@ -12,6 +12,8 @@ export default function PostTemplate({ data: { mdx } }) {
     <Presence>
       <SEO title={mdx.frontmatter.title} />
       <h1>{mdx.frontmatter.title}</h1>
+      <h3>by {mdx.frontmatter.author}</h3>
+      <date><em>{mdx.frontmatter.date}</em></date>
       <MDXProvider components={shortcodes}>
         <MDXRenderer>{mdx.body}</MDXRenderer>
       </MDXProvider>
@@ -25,6 +27,8 @@ export const pageQuery = graphql`
       body
       frontmatter {
         title
+        date(formatString: "dddd DD MMMM YYYY")
+        author
       }
     }
   }
