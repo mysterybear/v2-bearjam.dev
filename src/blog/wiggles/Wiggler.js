@@ -33,22 +33,28 @@ const Wiggler = () => {
     })),
 
 
-    bind = useDrag(({ movement: [x, y], args: [i] }) => {
+    bind = useDrag(({ xy: [x, y], args: [i], down }) => {
+
+      let point = svgRef.current.createSVGPoint()
+      point.x = x
+      point.y = y
+      point = point.matrixTransform(svgRef.current.getScreenCTM().inverse())
+
       setSprings(index => ({
-        x: i === index ? x : 0,
-        y: i === index ? y : 0
+        x: i === index ? point.x - xScale(points[i][0]) - 30 : 0,
+        y: i === index ? point.y - yScale(points[i][1]) - 20 : 0
       }))
-      // let point = svgRef.current.createSVGPoint()
-      // point.x = x
-      // point.y = y
-      // point = point.matrixTransform(svgRef.current.getScreenCTM().inverse())
-      // setPoints(produce(draft => {
-      //   // console.log(JSON.stringify(draft[i], null, 2))
-      //   // console.log(point.x, point.y)
-      //   draft[i] = [point.x, point.y]
-      //   // draft[i][0] = point.x;
-      //   // draft[i][1] = point.y;
-      // }))
+
+      if (!down) {
+        setPoints(produce(points, draft => {
+          draft[i][0] += xScale.invert(point.x - 30);
+          draft[i][1] += yScale.invert(point.x - 20);
+        }))
+        setSprings(index => ({
+          x: 0,
+          y: 0
+        }))
+      }
     });
 
   return (
@@ -68,7 +74,7 @@ const Wiggler = () => {
           {...bind(i)}
           cx={xScale(points[i][0])}
           cy={yScale(points[i][1])}
-          r={10}
+          r={30}
           style={props}
         />
       ))}

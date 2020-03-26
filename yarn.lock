@@ -1620,6 +1620,23 @@
     "@types/d3-shape" "^1.3.1"
     d3-shape "^1.0.6"
 
+"@vx/drag@^0.0.195":
+  version "0.0.195"
+  resolved "https://registry.yarnpkg.com/@vx/drag/-/drag-0.0.195.tgz#cec32802187dd64fbfc4e9a05ba6dfef341fb6f1"
+  integrity sha512-0/2tBGo2pJq3nXg5fRQYP4jIDI9CAmFqcWN7BJe290jSnqWqZGtcH04Jmaip1XumaGrvAGgfINp9TvqXBFJnDw==
+  dependencies:
+    "@types/react" "*"
+    "@vx/event" "0.0.195"
+    prop-types "^15.5.10"
+
+"@vx/event@0.0.195":
+  version "0.0.195"
+  resolved "https://registry.yarnpkg.com/@vx/event/-/event-0.0.195.tgz#6af8077223160a1261078990b527859f34009a32"
+  integrity sha512-7LgFdMvQD0SW0ZIWzqZ/umD+q4xwrJexuAeuUoxkV7tzt+fnPTkbnkymq371ZGvVAIGtv6urPrnOWyEvngQECw==
+  dependencies:
+    "@types/react" "*"
+    "@vx/point" "0.0.195"
+
 "@vx/grid@^0.0.195":
   version "0.0.195"
   resolved "https://registry.yarnpkg.com/@vx/grid/-/grid-0.0.195.tgz#179f96784f1a779ebfd97acc71b2c7046f1850ec"
