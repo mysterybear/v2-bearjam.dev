@@ -19,3 +19,18 @@ a:hover {
 @tailwind components;
 @tailwind utilities;
 
+.touch-none {
+  touch-action: none;
+}
+
+.touch-y {
+  touch-action: pan-y;
+}
+
+.touch-auto {
+  touch-action: auto;
+}
+
+.touch-manipulation {
+  touch-action: manipulation;
+}

@@ -13,7 +13,7 @@ export default function PostTemplate({ data: { mdx } }) {
       <SEO title={mdx.frontmatter.title} />
       <h1>{mdx.frontmatter.title}</h1>
       <h3>by {mdx.frontmatter.author}</h3>
-      <date><em>{mdx.frontmatter.date}</em></date>
+      <time><em>{mdx.frontmatter.date}</em></time>
       <MDXProvider components={shortcodes}>
         <MDXRenderer>{mdx.body}</MDXRenderer>
       </MDXProvider>
