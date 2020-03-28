@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
 import { scaleLinear } from 'd3';
-import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import produce from 'immer';
-import cx from 'classnames';
+import React, { useRef, useState } from 'react';
 
 const OneDraggablePoint = () => {
   const
@@ -16,12 +14,15 @@ const OneDraggablePoint = () => {
     height = yScale.range()[0],
 
     [circle, setCircle] = useState({ cx: 300, cy: 200 }),
-    [panning, setPanning] = useState(false)
+
+    [touchAction, setTouchAction] = useState('touch-auto'),
+    setTouch = x => () => setTouchAction(x)
     ;
 
 
+
   return (
-    <svg className={cx('bg-blue-300', panning && 'touch-none')} viewBox={`0 0 ${width} ${height}`} ref={svgRef}>
+    <svg className="bg-blue-300 touch-none" viewBox={`0 0 ${width} ${height}`} ref={svgRef}>
       <motion.circle
         onPan={(e, info) => {
           setCircle(produce(draft => {
@@ -33,8 +34,6 @@ const OneDraggablePoint = () => {
             draft.cy = point.y
           }));
         }}
-        onPanStart={() => setPanning(true)}
-        onPanEnd={() => setPanning(false)}
         cx={circle.cx}
         cy={circle.cy}
         r={100}

@@ -11,12 +11,14 @@ export default function PostTemplate({ data: { mdx } }) {
   return (
     <Presence>
       <SEO title={mdx.frontmatter.title} />
-      <h1>{mdx.frontmatter.title}</h1>
-      <h3>by {mdx.frontmatter.author}</h3>
-      <time><em>{mdx.frontmatter.date}</em></time>
-      <MDXProvider components={shortcodes}>
-        <MDXRenderer>{mdx.body}</MDXRenderer>
-      </MDXProvider>
+      <div className={mdx.frontmatter.classnames}>
+        <h1>{mdx.frontmatter.title}</h1>
+        <h3>by {mdx.frontmatter.author}</h3>
+        <time><em>{mdx.frontmatter.date}</em></time>
+        <MDXProvider components={shortcodes}>
+          <MDXRenderer>{mdx.body}</MDXRenderer>
+        </MDXProvider>
+      </div>
     </Presence>
   )
 }
@@ -29,6 +31,7 @@ export const pageQuery = graphql`
         title
         date(formatString: "dddd DD MMMM YYYY")
         author
+        classnames
       }
     }
   }
