@@ -82,3 +82,41 @@ HTML structure as follows:
 
 See here for storing last URL for dependent animation:
 https://www.wcj.io/blog/gatsby-link-with-previous-history
+
+Maybe this is a better `useMedia`:
+
+```js
+import { useEffect, useState } from "react";
+
+const useMedia = ({
+  queries = [
+    `(min-width: 1280px)`,
+    `(min-width: 1024px)`,
+    `(min-width: 768px)`,
+    `(min-width: 640px)`,
+  ],
+  values = [4, 3, 2, 1],
+  defaultValue = 0
+} = {}) => {
+
+  const [value, setValue] = useState(defaultValue)
+
+  useEffect(
+    () => {
+      const mqls = queries.map(q => window.matchMedia(q))
+      const handler = () => {
+        const index = mqls.findIndex(mql => mql.matches)
+        const next = values[index] ? values[index] : defaultValue
+        if (value !== next) setValue(next)
+      }
+      mqls.forEach(mql => mql.addListener(handler))
+      handler()
+      return () => mqls.forEach(mql => mql.removeListener(handler));
+    },
+  );
+
+  return value;
+}
+
+export default useMedia
+```
