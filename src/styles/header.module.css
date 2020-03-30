@@ -1,9 +1,8 @@
 .header {
   @apply
-    overflow-hidden
-    bg-gray-300 shadow-lg
-    fixed w-full;
-  z-index: 100;
+    w-full overflow-hidden
+    bg-gray-300 shadow-md
+    fixed z-50;
 }
 
 .header>div {

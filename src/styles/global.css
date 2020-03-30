@@ -34,3 +34,7 @@ a:hover {
 .touch-manipulation {
   touch-action: manipulation;
 }
+
+/* .gatsby-remark-autolink-headers-anchor>svg {
+  @apply absolute
+} */

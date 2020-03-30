@@ -29,6 +29,21 @@ module.exports = {
         },
         gatsbyRemarkPlugins: [
           {
+            resolve: `gatsby-remark-autolink-headers`,
+            options: {
+              className: `gatsby-remark-autolink-headers-anchor`
+            }
+          },
+          {
+            resolve: `gatsby-remark-table-of-contents`,
+            options: {
+              exclude: "Table of Contents",
+              tight: false,
+              fromHeading: 1,
+              toHeading: 6
+            },
+          },
+          {
             resolve: `gatsby-remark-vscode`,
             // All options are optional. Defaults shown here.
             options: {
@@ -46,7 +61,7 @@ module.exports = {
               }) => '',
               logLevel: 'warn'       // Set to 'info' to debug if something looks wrong
             }
-          }
+          },
         ]
       },
     },
