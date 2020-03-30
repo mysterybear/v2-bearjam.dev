@@ -8,6 +8,7 @@ import SvgLogo from './SvgLogo';
 import SvgMenu from './SvgMenu';
 import SvgBearjamAvatar from './SvgBearjamAvatar'
 import SvgBearjamTitle from './SvgBearjamTitle';
+import Nav from './Nav';
 
 const links = [
   { href: "/", label: "Home" },
@@ -70,21 +71,18 @@ const Header = () => {
         <Link to="/">
           <div className="flex items-center">
             <SvgBearjamAvatar className="w-12 p-2 ml-1" />
-            <SvgBearjamTitle className="w-24 ml-1"/>
+            <SvgBearjamTitle className="w-24 ml-1" />
           </div>
         </Link>
         {large ? (
-          <motion.nav
+          <Nav
             key="navDesktop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className={styles.navDesktop}
-          >
-            {links.map(({ href, label }) => (
-              <Link key={href} to={href}>{label}</Link>
-            ))}
-          </motion.nav>
+            linkProps={{}}
+          />
         ) : (
             <>
               <motion.div
@@ -102,21 +100,16 @@ const Header = () => {
                 exit={{ opacity: 0 }}
                 className={styles.navMobileDiv}
               >
-                <motion.nav
+                <Nav
                   animate={open ? "open" : "closed"}
                   initial="closed"
                   variants={variants.navParent}
-                >
-                  {links.map(({ href, label }, i) => (
-                    <Link
-                      key={i}
-                      to={href}
-                      initial="closed"
-                      variants={variants.navChildren}
-                      onClick={() => { setOpen(false) }}
-                    >{label}</Link>
-                  ))}
-                </motion.nav>
+                  linkProps={{
+                    initial: "closed",
+                    variants: variants.navChildren,
+                    onClick: () => { setOpen(false) }
+                  }}
+                />
               </motion.div>
             </>
           )}
