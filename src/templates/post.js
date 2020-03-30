@@ -2,8 +2,8 @@ import { MDXProvider } from "@mdx-js/react"
 import { graphql, Link } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import React from "react"
-import Presence from "../components/presence"
-import SEO from "../components/seo"
+import Presence from "../components/Presence"
+import SEO from "../components/SEO"
 
 const shortcodes = { Link } // Provide common components here
 

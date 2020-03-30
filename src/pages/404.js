@@ -1,6 +1,6 @@
 import React from "react"
-import Presence from "../components/presence"
-import SEO from "../components/seo"
+import Presence from "../components/Presence"
+import SEO from "../components/SEO"
 
 const NotFoundPage = () => (
   <Presence>

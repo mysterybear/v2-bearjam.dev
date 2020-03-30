@@ -1,6 +1,6 @@
 import React from 'react';
-import Presence from './presence';
-import SEO from './seo';
+import Presence from './Presence';
+import SEO from './SEO';
 
 const MDXLayout = ({ children, pageContext }) => {
  return (

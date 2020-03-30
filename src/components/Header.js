@@ -2,8 +2,8 @@ import { motion } from 'framer-motion';
 import { graphql, useStaticQuery } from 'gatsby';
 import React, { useState } from 'react';
 import useMedia from '../hooks/useMedia';
-import styles from '../styles/header.module.css';
-import Link from './link';
+import styles from './styles/header.module.css';
+import Link from './Link';
 import SvgLogo from './SvgLogo';
 import SvgMenu from './SvgMenu';
 import SvgBearjamAvatar from './SvgBearjamAvatar'
@@ -104,12 +104,14 @@ const Header = () => {
               >
                 <motion.nav
                   animate={open ? "open" : "closed"}
+                  initial="closed"
                   variants={variants.navParent}
                 >
                   {links.map(({ href, label }, i) => (
                     <Link
                       key={i}
                       to={href}
+                      initial="closed"
                       variants={variants.navChildren}
                       onClick={() => { setOpen(false) }}
                     >{label}</Link>

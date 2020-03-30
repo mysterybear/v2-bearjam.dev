@@ -8,10 +8,12 @@
 import { AnimatePresence } from 'framer-motion'
 import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
-import '../styles/global.css'
-import Footer from './footer'
-import Header from './header'
-import styles from '../styles/layout.module.css'
+import 'typeface-corben'
+import 'typeface-inter'
+import './styles/global.css'
+import styles from './styles/layout.module.css'
+import Footer from './Footer'
+import Header from './Header'
 
 
 const Layout = ({ children }) => {

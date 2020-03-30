@@ -1,14 +1,26 @@
 @tailwind base;
 
+body {
+  font-family: "Inter";
+  font-weight: normal;
+}
+
 h1 {
-  @apply text-2xl;
+  font-family: "Corben";
+  font-weight: bold;
+  @apply text-2xl mb-2;
 }
 h2 {
+  font-family: "Inter";
+  font-weight: bold;
   @apply text-xl;
 }
 h3 {
+  font-family: "Inter";
+  font-weight: bold;
   @apply text-lg;
 }
+
 a {
   @apply text-blue-700 font-semibold;
 }
