@@ -6,6 +6,8 @@ import styles from '../styles/header.module.css';
 import Link from './link';
 import SvgLogo from './SvgLogo';
 import SvgMenu from './SvgMenu';
+import SvgBearjamAvatar from './SvgBearjamAvatar'
+import SvgBearjamTitle from './SvgBearjamTitle';
 
 const links = [
   { href: "/", label: "Home" },
@@ -29,7 +31,13 @@ const Header = () => {
     `
   )
 
-  const screen = useMedia([4, 3, 2, 1], 0)
+  const large = useMedia({
+    queries: {
+      "(min-width: 640px)": true
+    },
+    defaultValue: false
+  })
+
   const [open, setOpen] = useState(false)
   const toggle = () => { setOpen(!open) }
 
@@ -61,11 +69,11 @@ const Header = () => {
       <div>
         <Link to="/">
           <div className="flex items-center">
-            <SvgLogo className={styles.logo} />
-            <h1>{site.siteMetadata.title}</h1>
+            <SvgBearjamAvatar className="w-12 p-2 ml-1" />
+            <SvgBearjamTitle className="w-24 ml-1"/>
           </div>
         </Link>
-        {screen > 0 ? (
+        {large ? (
           <motion.nav
             key="navDesktop"
             initial={{ opacity: 0 }}
@@ -85,7 +93,7 @@ const Header = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
               >
-                <SvgMenu className={screen < 1 ? styles.menu : "hidden"} open={open} onClick={toggle} />
+                <SvgMenu className={large < 1 ? styles.menu : "hidden"} open={open} onClick={toggle} />
               </motion.div>
               <motion.div
                 key="navMobile"
