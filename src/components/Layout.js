@@ -21,13 +21,13 @@ const Layout = ({ children }) => {
   const screen = useMedia()
   return (
     <MediaContext.Provider value={screen}>
-      <Header />
+      <Header key="header" />
       <main className={styles.main}>
         <AnimatePresence exitBeforeEnter>
           {children}
         </AnimatePresence>
       </main>
-      <Footer />
+      <Footer key="footer" />
     </MediaContext.Provider>
   )
 }
