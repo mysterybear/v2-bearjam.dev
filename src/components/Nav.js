@@ -16,6 +16,7 @@ const Nav = ({ linkProps, ...navProps }) => {
     >
       {links.map(({ href, label }) => (
         <Link
+          className="text-black"
           key={href}
           to={href}
           {...linkProps}

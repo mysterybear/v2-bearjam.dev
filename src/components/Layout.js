@@ -6,37 +6,29 @@
  */
 
 import { AnimatePresence } from 'framer-motion'
-import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
 import 'typeface-corben'
 import 'typeface-inter'
-import './styles/global.css'
-import styles from './styles/layout.module.css'
+import { MediaContext } from '../contexts'
+import useMedia from '../hooks/useMedia'
 import Footer from './Footer'
 import Header from './Header'
-
+import './styles/global.css'
+import styles from './styles/layout.module.css'
 
 const Layout = ({ children }) => {
-  const { site } = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
 
+  const screen = useMedia()
   return (
-    <>
-      <Header siteTitle={site.siteMetadata.title} />
+    <MediaContext.Provider value={screen}>
+      <Header />
       <main className={styles.main}>
         <AnimatePresence exitBeforeEnter>
           {children}
         </AnimatePresence>
       </main>
       <Footer />
-    </>
+    </MediaContext.Provider>
   )
 }
 

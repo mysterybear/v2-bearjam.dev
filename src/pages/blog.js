@@ -14,7 +14,7 @@ const BlogIndex = ({ data }) => {
       <ul>
         {posts.map(({ node: post }) => (
           <li key={post.id}>
-            <Link to={'/' + post.fields.slug}>
+            <Link to={post.fields.slug}>
               <h2>{post.frontmatter.title}</h2>
             </Link>
             <p>{post.excerpt}</p>

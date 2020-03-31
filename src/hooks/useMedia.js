@@ -22,7 +22,10 @@ const useMedia = ({
         handler = () => {
           const index = mqls.findIndex(mql => mql.matches)
           const next = values[index] ? values[index] : defaultValue
-          if (value !== next) setValue(next)
+          if (value !== next) {
+            console.log(next)
+            setValue(next)
+          }
         };
 
       mqls.forEach(mql => mql.addListener(handler))

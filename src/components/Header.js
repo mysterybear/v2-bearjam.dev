@@ -1,43 +1,17 @@
 import { motion } from 'framer-motion';
-import { graphql, useStaticQuery } from 'gatsby';
 import React, { useState } from 'react';
 import useMedia from '../hooks/useMedia';
-import styles from './styles/header.module.css';
 import Link from './Link';
-import SvgLogo from './SvgLogo';
-import SvgMenu from './SvgMenu';
-import SvgBearjamAvatar from './SvgBearjamAvatar'
-import SvgBearjamTitle from './SvgBearjamTitle';
 import Nav from './Nav';
-
-const links = [
-  { href: "/", label: "Home" },
-  { href: "/blog", label: "Blog" },
-  { href: "/faq", label: "FAQ's" },
-  { href: "/contact", label: "Contact" },
-];
+import styles from './styles/header.module.css';
+import SvgBearjamAvatar from './SvgBearjamAvatar';
+import SvgBearjamTitle from './SvgBearjamTitle';
+import SvgMenu from './SvgMenu';
+import { useContext } from 'react';
+import { MediaContext } from '../contexts';
 
 const Header = () => {
-  const { site } = useStaticQuery(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            description
-            author
-          }
-        }
-      }
-    `
-  )
-
-  const large = useMedia({
-    queries: {
-      "(min-width: 640px)": true
-    },
-    defaultValue: false
-  })
+  const screen = useContext(MediaContext)
 
   const [open, setOpen] = useState(false)
   const toggle = () => { setOpen(!open) }
@@ -74,7 +48,7 @@ const Header = () => {
             <SvgBearjamTitle className="w-24 ml-1" />
           </div>
         </Link>
-        {large ? (
+        {screen > 0 ? (
           <Nav
             key="navDesktop"
             initial={{ opacity: 0 }}
@@ -91,7 +65,7 @@ const Header = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
               >
-                <SvgMenu className={large < 1 ? styles.menu : "hidden"} open={open} onClick={toggle} />
+                <SvgMenu className={screen < 1 ? styles.menu : "hidden"} open={open} onClick={toggle} />
               </motion.div>
               <motion.div
                 key="navMobile"

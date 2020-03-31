@@ -9,7 +9,7 @@ const shortcodes = { Link } // Provide common components here
 
 export default function PostTemplate({ data: { mdx } }) {
   return (
-    <Presence>
+    <Presence key={mdx.frontmatter.title}>
       <SEO title={mdx.frontmatter.title} />
       <div className={mdx.frontmatter.classnames}>
         <h1>{mdx.frontmatter.title}</h1>

@@ -1,9 +1,8 @@
 import React from 'react';
+import ButtonLink from '../components/ButtonLink';
+import SvgIsometricOne from '../components/IsometricOne';
 import Presence from '../components/Presence';
 import SEO from '../components/SEO';
-import SvgIsometricOne from '../components/IsometricOne';
-import cx from 'classnames'
-import ButtonLink from '../components/ButtonLink';
 
 const Headline = () => (
   <section className="my-3 flex items-center flex-col sm:flex-row">
