@@ -14,8 +14,9 @@ const Presence = props => (
       exit: {
         opacity: 0,
         transition: {
-          staggerChildren: 1,
-          delayChildren: 1,
+          delay: 0.5,
+          staggerChildren: 0.1,
+          // delayChildren: 1,
           staggerDirection: -1
         }
       }
@@ -23,7 +24,6 @@ const Presence = props => (
     initial="exit"
     animate="enter"
     exit="exit"
-    // transition={{ duration: 0.6 }}
     {...props}
   />
 )
