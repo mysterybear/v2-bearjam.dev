@@ -31,7 +31,7 @@ h3 {
 }
 
 a {
-  @apply text-blue-700 font-semibold;
+  @apply text-gray-900 font-semibold;
 }
 a:hover {
   @apply underline;
@@ -54,6 +54,10 @@ a:hover {
 
 .touch-manipulation {
   touch-action: manipulation;
+}
+
+.flex-basis-40 {
+  flex-basis: 40%;
 }
 
 

@@ -33,8 +33,9 @@ const Header = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              className="mr-2"
               linkProps={{
-                className: "mr-4"
+                className: "mr-10"
               }}
             />
           ) : (
