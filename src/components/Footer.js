@@ -6,6 +6,9 @@ import SvgBearjamTitle from "./SvgBearjamTitle"
 import cx from 'classnames'
 import { useContext } from "react"
 import { MediaContext } from "../contexts"
+import IconGitHub from "./icons/IconGitHub"
+import IconTwitter from "./icons/IconTwitter"
+import IconLinkedIn from "./icons/IconLinkedIn"
 
 const Footer = () => {
   const screen = useContext(MediaContext)
@@ -21,7 +24,11 @@ const Footer = () => {
       <hr className="border-gray-500 w-40" />
       <SvgBearjamAvatar className="w-8 mt-4" />
       <SvgBearjamTitle className="w-24 mt-4" />
-      <p>{screen}</p>
+      <div className="flex">
+        <IconGitHub className="w-4 text-white fill-current"/>
+        <IconTwitter className="w-4 text-white fill-current"/>
+        <IconLinkedIn className="w-4 text-white fill-current"/>
+      </div>
     </footer>
   )
 }
