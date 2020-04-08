@@ -5,7 +5,7 @@ import Link from './Link';
 const links = [
   { href: "/", label: "Home" },
   { href: "/blog", label: "Blog" },
-  { href: "/faq", label: "FAQ's" },
+  { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ]
 

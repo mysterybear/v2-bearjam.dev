@@ -2,3 +2,22 @@
   background-color: #12283a;
   flex-shrink: 0;
 }
+
+@screen sm {
+  .root>nav>a:nth-child(-n+2) {
+    transform: translateX(-6rem);
+  }
+  .root>nav>a:nth-child(n+3) {
+    transform: translateX(6rem);
+  }
+}
+
+@screen lg {
+
+  .root>nav>a:nth-child(-n+2) {
+    transform: translateX(-8rem);
+  }
+  .root>nav>a:nth-child(n+3) {
+    transform: translateX(8rem);
+  }
+}
