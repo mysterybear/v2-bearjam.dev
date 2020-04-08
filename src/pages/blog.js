@@ -23,7 +23,7 @@ const BlogIndex = ({ data }) => {
               <Link to={post.fields.slug}>
                 <h2 className="text-2xl">{post.frontmatter.title}</h2>
               </Link>
-              <date className="date">{post.frontmatter.date}</date>
+              <time className="date">{post.frontmatter.date}</time>
               <p>{post.excerpt}</p>
             </motion.div>
           ))}
