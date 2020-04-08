@@ -23,7 +23,19 @@ const Header = () => {
   return (
     <motion.header
       className="fixed w-full overflow-hidden shadow-md z-50 bg-white"
-      animate={open ? ({ height: '100%' }) : ({ height: 'auto' })}
+      animate={open ? {
+        height: '100%'
+      } : {
+          height: 'auto',
+          transition: {
+            delay: 0.8,
+            type: "spring",
+            damping: 30,
+            mass: 2,
+            stiffness: 200
+          }
+        }
+      }
       transition={{ type: 'spring', damping: 30, mass: 2, stiffness: 200 }}
     >
       <div className="flex justify-between items-center max-w-4xl mx-auto">
@@ -52,8 +64,8 @@ const Header = () => {
                     animate={active ? {
                       color: theme.colors.pink[400]
                     } : {
-                      color: theme.colors.blue[800]
-                    }}
+                        color: theme.colors.blue[800]
+                      }}
                   >
                     {label}
                   </Link>
@@ -85,10 +97,14 @@ const Header = () => {
                     className="w-full h-full flex flex-col justify-center items-center"
                     variants={{
                       open: {
-                        transition: { staggerChildren: 0.1, delayChildren: 0.2 }
+                        transition: { staggerChildren: 0.15, delayChildren: 0.15 }
                       },
                       closed: {
-                        transition: { staggerChildren: 0.05, delayChildren: 0 }
+                        transition: {
+                          staggerChildren: 0.15,
+                          delayChildren: 0.1,
+                          staggerDirection: -1
+                        }
                       }
                     }}
                     initial="closed"

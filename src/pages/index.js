@@ -8,11 +8,13 @@ import { motion } from 'framer-motion';
 const defaultVariants = i => ({
   enter: {
     opacity: 1,
-    x: 0
+    x: 0,
+    scale: 1.0
   },
   exit: {
     opacity: 0,
-    x: i % 2 == 0 ? -500 : 500
+    x: i % 2 == 0 ? -500 : 500,
+    scale: 0
   }
 })
 
