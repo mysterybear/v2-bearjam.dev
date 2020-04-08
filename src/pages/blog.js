@@ -4,13 +4,26 @@ import Presence from "../components/Presence"
 import SEO from "../components/SEO"
 import { motion } from "framer-motion"
 
+const aniProps = {
+  variants: {
+    enter: {
+      opacity: 1,
+      y: 0
+    },
+    exit: {
+      opacity: 0,
+      y: -50
+    }
+  }
+}
+
 const BlogIndex = ({ data }) => {
   const { edges: posts } = data.allMdx
 
   return (
     <Presence key="blogPage" className="mt-3 sm:mt-6">
       <SEO title="Blog" />
-      <h1>Awesome MDX Blog</h1>
+      <motion.h1 {...aniProps}>Awesome MDX Blog</motion.h1>
 
       <div>
         {posts
@@ -19,6 +32,7 @@ const BlogIndex = ({ data }) => {
             <motion.div
               key={post.id}
               className="mb-6"
+              {...aniProps}
             >
               <Link to={post.fields.slug}>
                 <h2 className="text-2xl">{post.frontmatter.title}</h2>

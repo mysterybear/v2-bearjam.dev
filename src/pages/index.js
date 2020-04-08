@@ -4,17 +4,25 @@ import SvgIsometricOne from '../components/SvgIsometricOne';
 import Presence from '../components/Presence';
 import SEO from '../components/SEO';
 import { motion } from 'framer-motion';
+import { springTwo, springQuickExit } from '../utils/transitionProps';
 
 const defaultVariants = i => ({
   enter: {
     opacity: 1,
     x: 0,
-    scale: 1.0
+    transition: {
+      ...springTwo
+    }
   },
   exit: {
     opacity: 0,
-    x: i % 2 == 0 ? -500 : 500,
-    scale: 0
+    x: i % 2 == 0 ? -200 : 200,
+    transition: {
+      ...springQuickExit,
+      // restSpeed: 0.5,
+      // restDelta: 0.5
+      // do more
+    }
   }
 })
 
