@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React, { useContext, useState } from 'react';
 import { MediaContext } from '../contexts';
 import Link from './Link';
-import Nav from './Nav';
+import links from './links';
 import SvgBearjamAvatar from './SvgBearjamAvatar';
 import SvgBearjamTitle from './SvgBearjamTitle';
 import SvgMenu from './SvgMenu';
@@ -28,16 +28,23 @@ const Header = () => {
         </Link>
         <AnimatePresence exitBeforeEnter>
           {screen > 0 ? (
-            <Nav
+            <motion.nav
               key="navDesktop"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="mr-2"
-              linkProps={{
-                className: "mr-10"
-              }}
-            />
+            >
+              {links.map(({ href, label }) => (
+                <Link
+                  className="text-black mr-10"
+                  key={href}
+                  to={href}
+                >
+                  {label}
+                </Link>
+              ))}
+            </motion.nav>
           ) : (
               <>
                 <motion.div
@@ -59,7 +66,7 @@ const Header = () => {
                   exit={{ opacity: 0 }}
                   className="absolute w-full h-full inset-0 pointer-events-none"
                 >
-                  <Nav
+                  <motion.nav
                     className="w-full h-full flex flex-col justify-center items-center"
                     variants={{
                       open: {
@@ -71,26 +78,34 @@ const Header = () => {
                     }}
                     initial="closed"
                     animate={open ? "open" : "closed"}
-                    linkProps={{
-                      className: "pointer-events-auto my-8 text-xl tracking-widest",
-                      initial: "closed",
-                      variants: {
-                        open: {
-                          opacity: 1
-                        },
-                        closed: {
-                          opacity: 0
-                        }
-                      },
-                      onClick: () => { setOpen(false) }
-                    }}
-                  />
+                  >
+
+                    {links.map(({ href, label }) => (
+                      <Link
+                        className="pointer-events-auto my-8 text-xl tracking-widest"
+                        key={href}
+                        to={href}
+                        initial="closed"
+                        variants={{
+                          open: {
+                            opacity: 1
+                          },
+                          closed: {
+                            opacity: 0
+                          }
+                        }}
+                        onClick={() => { setOpen(false) }}
+                      >
+                        {label}
+                      </Link>
+                    ))}
+                  </motion.nav>
                 </motion.div>
               </>
             )}
         </AnimatePresence>
       </div>
-    </motion.header>
+    </motion.header >
   );
 }
 
