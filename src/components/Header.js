@@ -72,7 +72,7 @@ const Header = () => {
                     initial="closed"
                     animate={open ? "open" : "closed"}
                     linkProps={{
-                      className: "pointer-events-auto mt-4",
+                      className: "pointer-events-auto my-8 text-xl tracking-widest",
                       initial: "closed",
                       variants: {
                         open: {
