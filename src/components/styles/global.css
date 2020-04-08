@@ -12,6 +12,11 @@ div#gatsby-focus-wrapper {
 body {
   font-family: "Inter";
   font-weight: normal;
+  @apply text-blue-900;
+}
+
+h1, h2, h3, a {
+  @apply text-blue-800;
 }
 
 h1 {
@@ -31,7 +36,7 @@ h3 {
 }
 
 a {
-  @apply text-gray-900 font-semibold;
+  @apply font-semibold;
 }
 a:hover {
   @apply underline;
@@ -58,6 +63,10 @@ a:hover {
 
 .flex-basis-40 {
   flex-basis: 40%;
+}
+
+.date {
+  @apply font-light text-sm;
 }
 
 

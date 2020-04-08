@@ -1,0 +1,96 @@
+---
+title: Scale Player
+author: Thomas O'Neill
+date: 2020-04-07
+---
+
+Hi
+
+
+```js
+import React, { useState, useEffect } from 'react';
+import { ScaleType, Note } from '@tonaljs/tonal';
+import * as R from 'ramda';
+import Tone from 'tone'
+import { useRef } from 'react';
+import webmidi from 'webmidi';
+
+const sfy = x => JSON.stringify(x, null, 2)
+
+const ScalePlayer = () => {
+  const
+    output = useRef(),
+
+    startNote = "C4",
+
+    scales = ScaleType.all().reduce((p, n) => ({
+      ...p,
+      [n.name]: {
+        ...n
+      }
+    }), {}),
+
+    options = R.keys(scales),
+
+    [currentScale, setCurrentScale] = useState(scales["major"]),
+    seq = useRef(new Tone.Sequence()),
+
+    trigger = () => {
+      const
+        intervals = currentScale.intervals,
+        notes = [
+          ...intervals.map(interval => Note.transpose(startNote, interval)),
+          Note.transpose(startNote, "P8")
+        ];
+
+      if (seq.current != null) seq.current.dispose()
+      seq.current = new Tone.Sequence((time, note) => {
+        output.current.playNote(note, 'all', {
+          duration: 100
+        });
+      }, notes, "8n")
+      seq.current.start();
+
+    },
+
+    selectChange = e => {
+      setCurrentScale(scales[e.target.value])
+      trigger()
+    },
+
+    stop = () => {
+      seq.current.dispose()
+      seq.current = null;
+    },
+
+
+    startup = () => {
+      webmidi.enable(err => {
+        if (err) throw err;
+        output.current = webmidi.getOutputByName("Midi Through Port-0")
+        Tone.Transport.start()
+
+        trigger()
+      })
+    }
+
+  useEffect(() => {
+    startup()
+  }, [])
+  return (
+    <>
+      <select onChange={selectChange}>
+        {options.map(opt => (
+          <option key={opt} value={opt}>{opt}</option>
+        ))}
+      </select>
+      <button onClick={trigger}>trigger</button>
+      <button onClick={stop}>stop</button>
+      <button onClick={startup}>startup</button>
+      <pre>{sfy(scales[currentScale])}</pre>
+    </>
+  );
+}
+
+export default ScalePlayer;
+```

@@ -53,7 +53,7 @@ const StuffWeDo = () => (
       className="leading-10 text-center sm:text-left"
       variants={defaultVariants(0)}
     >What stuff do we do?<br />Let us tell you</motion.h1>
-    <div className="flex flex-wrap justify-between mb-6">
+    <div className="flex flex-wrap justify-between mb-12 sm:mb-20">
       {[
         {
           header: "User experiences",
@@ -73,11 +73,11 @@ const StuffWeDo = () => (
         },
       ].map(({ header, blurb }, i) => (
         <motion.div
-          className="w-full sm:w-5/12 sm:flex-grow sm:max-w-xs lg:max-w-sm my-2"
+          className="w-full sm:w-5/12 sm:flex-grow sm:max-w-xs lg:max-w-sm mt-8"
           variants={defaultVariants(i)}
         >
           <h3>{header}</h3>
-          <p>{blurb}</p>
+          <p className="my-2">{blurb}</p>
         </motion.div>
       ))}
     </div>

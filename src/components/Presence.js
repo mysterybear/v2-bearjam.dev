@@ -5,17 +5,16 @@ const Presence = props => (
   <motion.div
     variants={{
       enter: {
-        opacity: 1,
+        // opacity: 1,
         transition: {
-          staggerChildren: 0.2,
-          delayChildren: 0.1
+          staggerChildren: 0.05,
+          // delayChildren: 0.1
         }
       },
       exit: {
-        opacity: 0,
+        // opacity: 0,
         transition: {
-          delay: 0.5,
-          staggerChildren: 0.1,
+          staggerChildren: 0.05,
           // delayChildren: 1,
           staggerDirection: -1
         }
