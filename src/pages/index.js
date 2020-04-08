@@ -27,9 +27,9 @@ const IndexPage = () => {
 }
 
 const Headline = () => (
-  <section className="my-3 flex items-center flex-col sm:flex-row sm:justify-between">
+  <section className="mt-5 sm:mt-8 flex items-center flex-col sm:flex-row sm:justify-between">
     <motion.div
-      className="w-full mb-4 sm:order-last sm:flex-1 flex justify-end"
+      className="w-full mb-4 sm:order-last sm:flex-1 flex justify-end max-w-lg"
       variants={defaultVariants(1)}
     >
       <SvgIsometricOne className="w-full" />
@@ -48,7 +48,7 @@ const Headline = () => (
 )
 
 const StuffWeDo = () => (
-  <section className="mt-8">
+  <section className="mt-12 sm:mt-0">
     <motion.h1
       className="leading-10 text-center sm:text-left"
       variants={defaultVariants(0)}
@@ -73,11 +73,12 @@ const StuffWeDo = () => (
         },
       ].map(({ header, blurb }, i) => (
         <motion.div
+          key={header}
           className="w-full sm:w-5/12 sm:flex-grow sm:max-w-xs lg:max-w-sm mt-8"
           variants={defaultVariants(i)}
         >
           <h3>{header}</h3>
-          <p className="my-2">{blurb}</p>
+          <p className="my-2 sm:pr-8 md:pr-4 lg:pr-0">{blurb}</p>
         </motion.div>
       ))}
     </div>
