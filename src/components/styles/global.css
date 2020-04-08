@@ -12,7 +12,7 @@ div#gatsby-focus-wrapper {
 body {
   font-family: "Inter";
   font-weight: normal;
-  @apply text-blue-900;
+  @apply text-blue-900 overflow-x-hidden;
 }
 
 h1, h2, h3, a {
@@ -70,3 +70,7 @@ a {
 /* .gatsby-remark-autolink-headers-anchor>svg {
   @apply absolute
 } */
+
+.flex-1-0-auto {
+  flex: 1 0 auto;
+}

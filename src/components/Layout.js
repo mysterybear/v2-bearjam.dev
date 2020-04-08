@@ -14,7 +14,6 @@ import useMedia from '../hooks/useMedia'
 import Footer from './Footer'
 import Header from './Header'
 import './styles/global.css'
-import styles from './styles/layout.module.css'
 
 const Layout = ({ children }) => {
 
@@ -22,7 +21,7 @@ const Layout = ({ children }) => {
   return (
     <MediaContext.Provider value={screen}>
       <Header key="header" />
-      <main className={styles.main}>
+      <main className="flex-1-0-auto max-w-4xl mx-auto pt-16 px-2 mb-12 sm:mb-20 sm:px-4 lg:px-0">
         <AnimatePresence exitBeforeEnter>
           {children}
         </AnimatePresence>

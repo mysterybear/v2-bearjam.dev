@@ -53,7 +53,7 @@ const StuffWeDo = () => (
       className="leading-10 text-center sm:text-left"
       variants={defaultVariants(0)}
     >What stuff do we do?<br />Let us tell you</motion.h1>
-    <div className="flex flex-wrap justify-between mb-12 sm:mb-20">
+    <div className="flex flex-wrap justify-between">
       {[
         {
           header: "User experiences",

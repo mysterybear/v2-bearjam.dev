@@ -13,7 +13,6 @@
 }
 
 @screen lg {
-
   .root>nav>a:nth-child(-n+2) {
     transform: translateX(-8rem);
   }
