@@ -8,6 +8,7 @@ import SvgBearjamTitle from './SvgBearjamTitle';
 import SvgMenu from './SvgMenu';
 import { useLocation } from '@reach/router'
 import { theme } from '../../tailwind.full.config'
+import { defaultSpring } from '../utils/transitionProps'
 
 
 const Header = () => {
@@ -29,14 +30,11 @@ const Header = () => {
           height: 'auto',
           transition: {
             delay: 0.8,
-            type: "spring",
-            damping: 30,
-            mass: 2,
-            stiffness: 200
+            ...defaultSpring
           }
         }
       }
-      transition={{ type: 'spring', damping: 30, mass: 2, stiffness: 200 }}
+      transition={defaultSpring}
     >
       <div className="flex justify-between items-center max-w-4xl mx-auto">
         <Link to="/">
