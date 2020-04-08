@@ -6,12 +6,19 @@ import links from './links';
 import SvgBearjamAvatar from './SvgBearjamAvatar';
 import SvgBearjamTitle from './SvgBearjamTitle';
 import SvgMenu from './SvgMenu';
+import { useLocation } from '@reach/router'
+import { theme } from '../../tailwind.full.config'
+
 
 const Header = () => {
-  const screen = useContext(MediaContext)
+  const
+    screen = useContext(MediaContext),
 
-  const [open, setOpen] = useState(false)
-  const toggle = () => { setOpen(!open) }
+    [open, setOpen] = useState(false),
+    toggle = () => { setOpen(!open) },
+
+    { pathname } = useLocation()
+    ;
 
   return (
     <motion.header
@@ -35,15 +42,23 @@ const Header = () => {
               exit={{ opacity: 0 }}
               className="mr-2"
             >
-              {links.map(({ href, label }) => (
-                <Link
-                  className="text-black mr-10"
-                  key={href}
-                  to={href}
-                >
-                  {label}
-                </Link>
-              ))}
+              {links.map(({ href, label }) => {
+                const active = pathname === href
+                return (
+                  <Link
+                    className="mr-10"
+                    key={href}
+                    to={href}
+                    animate={active ? {
+                      color: theme.colors.pink[400]
+                    } : {
+                      color: theme.colors.blue[800]
+                    }}
+                  >
+                    {label}
+                  </Link>
+                )
+              })}
             </motion.nav>
           ) : (
               <>
@@ -86,13 +101,16 @@ const Header = () => {
                         key={href}
                         to={href}
                         initial="closed"
+                        custom={{ active: href === pathname }}
                         variants={{
-                          open: {
-                            opacity: 1
-                          },
-                          closed: {
-                            opacity: 0
-                          }
+                          open: ({ active }) => ({
+                            opacity: 1,
+                            color: active ? theme.colors.pink[400] : theme.colors.blue[800]
+                          }),
+                          closed: ({ active }) => ({
+                            opacity: 0,
+                            color: active ? theme.colors.pink[400] : theme.colors.blue[800]
+                          })
                         }}
                         onClick={() => { setOpen(false) }}
                       >
