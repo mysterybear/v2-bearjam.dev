@@ -1,0 +1,69 @@
+```js
+import { ChordType, Note } from '@tonaljs/tonal'
+import React, { useRef, useState } from 'react'
+import { useHotkeys } from 'react-hotkeys-hook'
+import webmidi from 'webmidi'
+
+const sfy = x => JSON.stringify(x, null, 2)
+
+const ChordPlayer = () => {
+
+  const
+    output = useRef(),
+
+    [baseNote, setBaseNote] = useState("C4"),
+
+    chords =
+      ChordType.all()
+        .filter(x => x.name),
+
+    [chordIndex, setChordIndex] = useState(0),
+
+    chordSelect = e => {
+      setChordIndex(e.target.value)
+    },
+
+    startup = () => {
+      webmidi.enable(err => {
+        if (err) throw err;
+
+        output.current = webmidi.getOutputByName("Midi Through Port-0")
+
+        console.log("running!")
+      })
+    }
+    ;
+
+  useHotkeys('up', () => setChordIndex(p => p - 1 < 0 ? chords.length - 1 : p - 1))
+  useHotkeys('down', () => setChordIndex(p => p + 1 > chords.length - 1 ? 0 : p + 1))
+  useHotkeys('space', () => {
+    const
+      { intervals } = chords[chordIndex],
+      notes = intervals.map(interval => Note.transpose(baseNote, interval));
+
+    console.log(notes)
+
+    output.current.playNote(notes, 'all', {
+      duration: 500
+    });
+
+  }, {}, [baseNote, chordIndex])
+
+  return (
+    <>
+      <select onChange={chordSelect} value={chordIndex}>
+        {chords.map(({ name }, i) => (
+          <option key={name} value={i}>{name}</option>
+        ))}
+      </select>
+      {/* <button onClick={trigger}>trigger</button>
+      <button onClick={stop}>stop</button>
+      <button onClick={startup}>startup</button> */}
+      <button onClick={startup}>startup</button>
+      <pre>{sfy(chords[chordIndex])}</pre>
+    </>
+  );
+}
+
+export default ChordPlayer;
+```
